@@ -64,10 +64,13 @@ struct ComicCarouselView: View {
                 
                 if selectedItem != nil && show {
                     //Creating detail view with selected item by listening the state property
-                    let detailVM = ComicDetailViewModel(comicModel: selectedItem)
+                    let dataManager: FavouriteDataManagerProtocol = FavouriteDataManager.shared
+                    let detailVM = ComicDetailViewModel(comicModel: selectedItem, dataManager: dataManager)
                     ComicDetailView(viewModel: detailVM, comic: $selectedItem, show: $show)
+                        .onAppear{
+                            detailVM.dataDelegate = viewModel
+                        }
                 }
-                
             }
         }
         //Setting alert for error cases.

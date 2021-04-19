@@ -29,10 +29,13 @@ class ComicDetailViewModel: ObservableObject {
     
     // MARK: Delegation
     @objc weak var dataDelegate: DataFetchProtocol?
+    var dataManager: FavouriteDataManagerProtocol
     
     // MARK: Constructor
-    init(comicModel: ComicModel) {
+    init(comicModel: ComicModel, dataManager: FavouriteDataManagerProtocol) {
+        self.dataManager = dataManager
         self.comic = comicModel
+        self.isFavorite = self.findAlreadyAdded()
     }
 }
 
@@ -53,14 +56,19 @@ extension ComicDetailViewModel {
 extension ComicDetailViewModel: ComicDetailProtocol{
     
     func findAlreadyAdded() -> Bool {
-        return false
+        return dataManager.isAlreadyAdded(comic: self.comic)
     }
     
     func addToFavourite() {
+        self.isFavorite = true
+        dataManager.addToFavourite(comic: self.comic)
     }
     
     func unFavourite() {
-       
+        self.isFavorite = false
+        dataManager.unFavourite(comic: self.comic)
+        //Delegate method is used to update the favourite list when unfavourite the movie.
+        dataDelegate?.updateView()
     }
 }
 

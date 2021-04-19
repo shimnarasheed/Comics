@@ -43,11 +43,9 @@ struct ComicDetailView: View {
                             //Favoutite or unfavourite action
                             viewModel.favouriteOrUnfavourite()
                         }) {
-                            
                             Image(systemName: (viewModel.isFavorite == true) ? ImageName.heartFill : ImageName.heart)
                                 .favImageModifier(isfavorite: viewModel.isFavorite ?? false)
                         }
-                        
                     }
                     
                     //Release date view

@@ -18,6 +18,7 @@ struct ComicListView: View {
             ComicCarouselView(viewModel: viewModel)
         }
         .ignoresSafeArea(.all, edges: .top)
+        
     }
 }
 

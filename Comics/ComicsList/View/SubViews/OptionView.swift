@@ -22,7 +22,7 @@ struct OptionView: View {
                 ForEach(scroll_Tabs,id: \.self){tab in
                     // Tab Button...
                     TabButton(title: tab, selectedTab: $selectedTab, animation: animation, selectionHandler: { selectedItem in
-//                        viewModel.handleTabSelection(selectedTab:selectedItem)
+                        viewModel.handleTabSelection(selectedTab:selectedItem)
                     })
                 }
             }

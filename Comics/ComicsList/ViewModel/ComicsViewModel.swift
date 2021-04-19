@@ -16,6 +16,7 @@ protocol ComicFetchProtocol {
 class ComicsViewModel: ObservableObject {
     // MARK: Dependency
     var apiManager: APIManager
+    var dataManager: FavouriteDataManagerProtocol
     
     //Publishers
     @Published var comics: [ComicModel]?
@@ -27,8 +28,9 @@ class ComicsViewModel: ObservableObject {
     private var comicsArray = [ComicModel]()
     
     //Constructor
-    init(apiManager: APIManager){
+    init(apiManager: APIManager, dataManager: FavouriteDataManagerProtocol){
         self.apiManager = apiManager
+        self.dataManager = dataManager
         //Calling APi to fetch all Comics
         fetchAllComics()
     }
@@ -43,9 +45,10 @@ extension ComicsViewModel: ComicFetchProtocol {
     }
 
     func fetchFavouriteComics() {
-//        DispatchQueue.main.async {
-//            //Fetching favorite Comic stored in coredata
-//        }
+        DispatchQueue.main.async {
+            //Fetching favorite Comic stored in coredata
+            self.comics = self.dataManager.fetchFavouriteComicList()
+        }
     }
 }
 
@@ -105,3 +108,43 @@ extension ComicsViewModel {
     }
 }
 
+// MARK: - Public Methods
+extension ComicsViewModel{
+    /*
+     Method to handle tab selections and perform repsctive actions
+     */
+    func handleTabSelection(selectedTab: String) {
+        self.selectedTab = selectedTab
+        switch selectedTab{
+        case Options.AllComics.rawValue:
+            //Checking for already loaded comic array
+            if !self.comicsArray.isEmpty {
+                DispatchQueue.main.async {
+                    //Assigning already loaded comic array to update in UI
+                    self.comics = self.comicsArray
+                }
+            } else {
+                //Fetching comics from server
+                self.fetchAllComics()
+            }
+            break
+            
+        case Options.Favourite.rawValue:
+            self.fetchFavouriteComics()
+            break
+            
+        default:
+            break
+        }
+    }
+}
+
+// MARK: - DataFetchProtocol Methods
+extension ComicsViewModel: DataFetchProtocol {
+    func updateView() {
+        //Reload data only if the selected tab is favorite
+        if self.selectedTab == Options.Favourite.rawValue {
+            self.fetchFavouriteComics()
+        }
+    }
+}
