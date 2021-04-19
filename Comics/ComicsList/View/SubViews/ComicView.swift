@@ -17,16 +17,15 @@ struct ComicView: View {
     var body: some View {
             VStack(spacing: 8) {
                 //Creating Image view for banner
-                WebImage(url: URL(string: comic.img ))
+                WebImage(url: URL(string: comic.img))
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
                     .modifier(WebImageModifier())
-                    .frame( maxHeight: UIScreen.main.bounds.height-50)
                 
                 //Creating title view
-                Text(comic.title )
+                Text(comic.safeTitle ?? "" )
                     .modifier(TitleModifier())
-
+                
             }
     }
 }

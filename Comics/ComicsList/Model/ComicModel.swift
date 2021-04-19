@@ -10,9 +10,10 @@ import Foundation
 // MARK: - ComicModel
 struct ComicModel: Codable, Identifiable{
     let month: String
-    let id: Int
-    let link, year, news, safeTitle: String
-    let transcript, alt: String
+    let id = UUID()
+    let num: Int
+    let link, year, news, safeTitle: String?
+    let transcript, alt: String?
     let img: String
     let title, day: String
 
@@ -20,6 +21,6 @@ struct ComicModel: Codable, Identifiable{
         case month, link, year, news
         case safeTitle = "safe_title"
         case transcript, alt, img, title, day
-        case id = "num"
+        case num
     }
 }

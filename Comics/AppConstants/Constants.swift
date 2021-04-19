@@ -42,7 +42,7 @@ public enum Errors: String {
  enum that holds all the top tab options
  */
 enum Options: String {
-  case AllComics = "AllComics"
+  case AllComics = "All Comics"
   case Favourite = "Favourite"
 }
 /**
@@ -52,4 +52,16 @@ struct StaticTexts {
     static let error = "Error"
     static let OK = "OK"
     static let queue = "queue"
+    static var releaseYear = "Created Year"
+    static var details = "Details"
+}
+
+/**
+ Struct for image names
+ */
+struct ImageName {
+    static var placeholder = "Placeholder"
+    static var heartFill = "suit.heart.fill"
+    static var heart = "suit.heart"
+    static var close = "xmark"
 }

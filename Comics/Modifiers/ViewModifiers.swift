@@ -43,8 +43,9 @@ struct NormalTextModifier: ViewModifier {
 struct HeadingModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.avenirNextBold(size: 25))
+            .font(.avenirNextBold(size: 20))
             .foregroundColor(.black)
+            .multilineTextAlignment(.leading)
     }
 }
 
@@ -67,9 +68,9 @@ struct WebImageModifier : ViewModifier {
 struct closeViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .foregroundColor(Color.black.opacity(0.7))
+            .foregroundColor(Color.white.opacity(0.7))
             .padding()
-            .background(Color.white.opacity(0.8))
+            .background(Color.red.opacity(0.6))
             .clipShape(Circle())
     }
     

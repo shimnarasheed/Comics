@@ -14,7 +14,7 @@ struct ParallaxZoomView<Item: Identifiable, ItemView: View>: View {
     private var viewForItem: (Item) -> ItemView
     private var selectionHandler: (Item) -> Void
     
-    //MARK:- Constructor
+    //MARK:- Cobstructor
     init(_ items: [Item], viewForItem: @escaping (Item)-> ItemView, selectionHandler: @escaping (Item) -> Void) {
         self.items = items
         self.viewForItem = viewForItem
@@ -51,6 +51,8 @@ extension ParallaxZoomView {
                     .frame(width: 16)
             }
         }
+        
+    
     }
 
     private func body(for item:Item) -> some View {

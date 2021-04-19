@@ -29,7 +29,7 @@ struct TabButton: View {
             }
         })
         // default width...
-        .frame(width: 100)
+        .frame(width: 110)
         .onTapGesture {
             withAnimation(.spring()){
                 selectedTab = title

@@ -39,11 +39,18 @@ struct ComicCarouselView: View {
                         .padding(.leading, 15)
 
                     //Creating ComicView with Parallax effect
-                    ParallaxZoomView(viewModel.comics ?? []) { comic  in
-                        ComicView(comic: comic, viewModel: viewModel)
+                    ParallaxZoomView(viewModel.comics ?? []) { comicModel  in
+                        ComicView(comic: comicModel, viewModel: viewModel)
                         
                     } selectionHandler: { item in
+                        print(item)
                         //Handling Comic selection
+                            withAnimation(.easeIn(duration: 0.4)){
+                                //Getting selected item
+                                selectedItem = item
+                                //Changing show state to display detail view while tapping an item.
+                                show.toggle()
+                            }
                     }
 
                     .onAppear {
@@ -54,6 +61,12 @@ struct ComicCarouselView: View {
                 }
                 .padding(.top , 50)
                 .ignoresSafeArea(.all, edges: .top)
+                
+                if selectedItem != nil && show {
+                    //Creating detail view with selected item by listening the state property
+                    let detailVM = ComicDetailViewModel(comicModel: selectedItem)
+                    ComicDetailView(viewModel: detailVM, comic: $selectedItem, show: $show)
+                }
                 
             }
         }
